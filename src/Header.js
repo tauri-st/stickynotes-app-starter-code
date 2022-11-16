@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () => (
+const Header = (props) => (
     <header className="app-header__title">
         <h1>Super Sticky Notes</h1>
         <aside className="app-header__controls">
