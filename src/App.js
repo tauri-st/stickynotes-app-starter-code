@@ -15,7 +15,7 @@ class App extends Component {
     searchText: "search",
   };
 
-  addnote = () => {
+  addNote = () => {
     //create a new note
     const newNote = {
       id: Date.now(),
@@ -52,7 +52,8 @@ class App extends Component {
     const updatedNotes = this.state.notes.map((note) => {
       if (!newSearchText) {
         /* If the search field is empty, then
-      we set the doesMatchSearch value for every note to true. */
+      we set the doesMatchSearch value for every note to true 
+      and return all, helpful if someone starts to type then erases */
         note.doesMatchSearch = true;
         return note;
       } else {
