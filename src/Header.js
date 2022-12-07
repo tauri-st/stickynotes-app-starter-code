@@ -5,10 +5,10 @@ const Header = (props) => {
     props.onSearch(e.target.value);
   };
   return (
-    <header className="app-header__title">
-      <h1>Super Sticky Notes</h1>
+    <header className="app-header">
+      <h1 className="app-header__title">Super Sticky Notes</h1>
       <aside className="app-header__controls">
-        <button className="add-new" onCLick={props.addNote}>
+        <button className="add-new" onClick={props.addNote}>
           + New Note
         </button>
         <input
