@@ -12,7 +12,7 @@ class App extends Component {
         doesMatchSearch: true,
       },
     ],
-    searchText: "search",
+    searchText: "",
   };
 
   addNote = () => {
@@ -23,14 +23,11 @@ class App extends Component {
       description: "",
       doesMatchSearch: true,
     };
-    //add the new note to existing notes array in State
+    //add the new note to existing notes
     this.setState({ notes: [newNote, ...this.state.notes] });
   };
 
   onType = (editMeId, updatedKey, updatedValue) => {
-    //editMeId == id of the note that is edited
-    //updatedKey == title or description field?
-    //updatedValue == value of title or description
     const updatedNotes = this.state.notes.map((note) => {
       if (note.id !== editMeId) {
         return note;
@@ -51,9 +48,7 @@ class App extends Component {
     const newSearchText = text.toLowerCase();
     const updatedNotes = this.state.notes.map((note) => {
       if (!newSearchText) {
-        /* If the search field is empty, then
-      we set the doesMatchSearch value for every note to true 
-      and return all, helpful if someone starts to type then erases */
+        /* If the search field is empty, then return all */
         note.doesMatchSearch = true;
         return note;
       } else {
@@ -71,6 +66,24 @@ class App extends Component {
       notes: updatedNotes,
     });
   };
+
+  removeNote = (noteId) => {
+    const updatedNotes = this.state.notes.filter((note) => note.id !== noteId);
+    this.setState({ notes: updatedNotes });
+  };
+
+  componentDidUpdate() {
+    const stringifiedNotes = JSON.stringify(this.state.notes);
+    localStorage.setItem("savedNotes", stringifiedNotes);
+  }
+
+  componentDidMount() {
+    const stringifiedNotes = localStorage.getItem("savedNotes");
+    if (stringifiedNotes) {
+      const savedNotes = JSON.parse(stringifiedNotes);
+      this.setState({ notes: savedNotes });
+    }
+  }
 
   render() {
     return (
